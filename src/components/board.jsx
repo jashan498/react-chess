@@ -1,9 +1,18 @@
 import React, { Component } from "react";
 import Square from "./square.jsx";
+import initialiseChessBoard from "./initialiseChessBoard.js";
 
 class Board extends Component {
+  state = {
+    chessBoard: initialiseChessBoard()
+  };
   renderSquare = (i, squareShade) => {
-    return <Square shade={squareShade} />;
+    return (
+      <Square
+        shade={squareShade}
+        style={this.state.chessBoard[i] ? this.state.chessBoard[i].style : null}
+      />
+    );
   };
   buildBoard = () => {
     const board = [];
