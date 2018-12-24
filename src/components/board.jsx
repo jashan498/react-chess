@@ -4,15 +4,44 @@ import initialiseChessBoard from "./initialiseChessBoard.js";
 
 class Board extends Component {
   state = {
-    chessBoard: initialiseChessBoard()
+    chessBoard: initialiseChessBoard(),
+    source: -1
   };
   renderSquare = (i, squareShade) => {
     return (
       <Square
+        id={i}
         shade={squareShade}
+        high={i === this.state.source ? 1 : 0}
         style={this.state.chessBoard[i] ? this.state.chessBoard[i].style : null}
+        handleClick={this.handleClick}
       />
     );
+  };
+  handleClick = i => {
+    // If its the first click
+    if (this.state.source === -1) {
+      const square = this.state.chessBoard[i];
+      // see if there is a piece on that square
+      if (square) {
+        this.setState({ source: i });
+        // console.log(square.player, this.state.source);
+      }
+    } else {
+      // Its the second click, that is destination
+      let chessBoard = this.state.chessBoard;
+      let source = this.state.source;
+      const sourSquare = chessBoard[source];
+      // const destSquare = chessBoard[i];
+      if (sourSquare.isMovePossible(source, i)) {
+        chessBoard[i] = chessBoard[source];
+        chessBoard[source] = null;
+        source = -1;
+        this.setState({ chessBoard: chessBoard, source: source });
+      } else {
+        this.setState({ source: -1 });
+      }
+    }
   };
   buildBoard = () => {
     const board = [];

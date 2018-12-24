@@ -24,6 +24,10 @@ button {
   background-size: 100%;
 }
 
+.highlight {
+  border: 5px solid #800000; /* Green */
+}
+
 .square-black {
   background-color: RGB(142, 142, 126);
 }
