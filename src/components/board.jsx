@@ -6,6 +6,7 @@ import { Pawn } from "./pieces.js";
 class Board extends Component {
   state = {
     chessBoard: initialiseChessBoard(),
+    player: 1,
     source: -1
   };
   renderSquare = (i, squareShade) => {
@@ -25,6 +26,8 @@ class Board extends Component {
       const square = this.state.chessBoard[i];
       // see if there is a piece on that square
       if (square) {
+        // Player can move only his piece
+        if (this.state.player !== square.player) return;
         this.setState({ source: i });
       }
     } else {
@@ -49,7 +52,12 @@ class Board extends Component {
           chessBoard[source] = null;
           // console.log(sourSquare.getSrcToDestPath(source, i));
           source = -1;
-          this.setState({ chessBoard: chessBoard, source: source });
+          const player = this.state.player === 1 ? 2 : 1;
+          this.setState({
+            chessBoard: chessBoard,
+            player: player,
+            source: source
+          });
         } else {
           this.setState({ source: -1 });
         }
@@ -73,7 +81,18 @@ class Board extends Component {
     return board;
   };
   render() {
-    return <div>{this.buildBoard()}</div>;
+    return (
+      <div>
+        <nav className="navbar navbar-inverse navbar-fixed-top">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <h1 style={{ color: "white" }}>React Chess</h1>
+            </div>
+          </div>
+        </nav>
+        <div className="board">{this.buildBoard()}</div>
+      </div>
+    );
   }
 }
 
