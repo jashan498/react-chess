@@ -29,7 +29,7 @@ export class King extends Piece {
     );
   }
 
-  getSrcToDestPath(src, dest) {
+  getPath(src, dest) {
     return [];
   }
 }
@@ -57,7 +57,7 @@ export class Queen extends Piece {
     );
   }
 
-  getSrcToDestPath(src, dest) {
+  getPath(src, dest) {
     let path = [],
       pathStart,
       pathEnd,
@@ -105,7 +105,7 @@ export class Bishop extends Piece {
     return Math.abs(src - dest) % 9 === 0 || Math.abs(src - dest) % 7 === 0;
   }
 
-  getSrcToDestPath(src, dest) {
+  getPath(src, dest) {
     let path = [],
       pathStart,
       pathEnd,
@@ -156,7 +156,7 @@ export class Knight extends Piece {
     );
   }
 
-  getSrcToDestPath() {
+  getPath() {
     return [];
   }
 }
@@ -180,7 +180,7 @@ export class Rook extends Piece {
     );
   }
 
-  getSrcToDestPath(src, dest) {
+  getPath(src, dest) {
     let path = [],
       pathStart,
       pathEnd,
@@ -247,7 +247,7 @@ export class Pawn extends Piece {
     return false;
   }
 
-  getSrcToDestPath(src, dest) {
+  getPath(src, dest) {
     if (dest === src - 16) {
       return [src - 8];
     } else if (dest === src + 16) {

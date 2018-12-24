@@ -25,19 +25,28 @@ class Board extends Component {
       // see if there is a piece on that square
       if (square) {
         this.setState({ source: i });
-        // console.log(square.player, this.state.source);
       }
     } else {
       // Its the second click, that is destination
       let chessBoard = this.state.chessBoard;
       let source = this.state.source;
       const sourSquare = chessBoard[source];
-      // const destSquare = chessBoard[i];
+      const destSquare = chessBoard[i];
       if (sourSquare.isMovePossible(source, i)) {
-        chessBoard[i] = chessBoard[source];
-        chessBoard[source] = null;
-        source = -1;
-        this.setState({ chessBoard: chessBoard, source: source });
+        const pathArray = sourSquare.getPath(source, i);
+        console.log(pathArray);
+        if (
+          pathArray.every(s => chessBoard[s] === null) &&
+          (!destSquare || destSquare.player !== sourSquare.player)
+        ) {
+          chessBoard[i] = chessBoard[source];
+          chessBoard[source] = null;
+          // console.log(sourSquare.getSrcToDestPath(source, i));
+          source = -1;
+          this.setState({ chessBoard: chessBoard, source: source });
+        } else {
+          this.setState({ source: -1 });
+        }
       } else {
         this.setState({ source: -1 });
       }
