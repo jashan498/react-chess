@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Square from "./square.jsx";
 import initialiseChessBoard from "./initialiseChessBoard.js";
+import { Pawn } from "./pieces.js";
 
 class Board extends Component {
   state = {
@@ -32,9 +33,14 @@ class Board extends Component {
       let source = this.state.source;
       const sourSquare = chessBoard[source];
       const destSquare = chessBoard[i];
-      if (sourSquare.isMovePossible(source, i)) {
+      let isMovePossible = sourSquare.isMovePossible(source, i);
+      if (sourSquare instanceof Pawn) {
+        const isDestOcc = destSquare;
+        isMovePossible = sourSquare.isMovePossible(source, i, isDestOcc);
+      }
+      if (isMovePossible) {
         const pathArray = sourSquare.getPath(source, i);
-        console.log(pathArray);
+        // console.log(sourSquare instanceof Pawn, pathArray);
         if (
           pathArray.every(s => chessBoard[s] === null) &&
           (!destSquare || destSquare.player !== sourSquare.player)

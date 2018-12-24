@@ -218,11 +218,16 @@ export class Pawn extends Piece {
     );
   }
 
+  initialPos = [
+    [48, 49, 50, 51, 52, 53, 54, 55],
+    [8, 9, 10, 11, 12, 13, 14, 15]
+  ];
+
   isMovePossible(src, dest, isDestEnemyOccupied) {
     if (this.player === 1) {
       if (
         (dest === src - 8 && !isDestEnemyOccupied) ||
-        (dest === src - 16 && this.initialPositions[1].indexOf(src) !== -1)
+        (dest === src - 16 && this.initialPos[0].indexOf(src) !== -1)
       ) {
         return true;
       } else if (
@@ -234,7 +239,7 @@ export class Pawn extends Piece {
     } else if (this.player === 2) {
       if (
         (dest === src + 8 && !isDestEnemyOccupied) ||
-        (dest === src + 16 && this.initialPositions[2].indexOf(src) !== -1)
+        (dest === src + 16 && this.initialPos[1].indexOf(src) !== -1)
       ) {
         return true;
       } else if (
