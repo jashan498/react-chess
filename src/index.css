@@ -3,8 +3,8 @@
   border-color: #080808;
 }
 .navbar {
-  height: 4vw;
-  margin-bottom: 4vw;
+  height: 5vw;
+  margin-bottom: 3vw;
 }
 
 button {
@@ -44,6 +44,10 @@ button {
 
 .highlight {
   border: 5px solid #f8f6f4;
+}
+
+.check {
+  border: 5px solid #a70d0d;
 }
 
 .square-black {
