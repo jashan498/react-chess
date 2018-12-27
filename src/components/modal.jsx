@@ -9,7 +9,7 @@ class Modal extends Component {
     return (
       <div className={showHideClassName}>
         <section className="modal-main">
-          <h1 className="mtext">{this.props.winner} is victorious!</h1>
+          <h1 className="mtext">{this.props.winner} wins!</h1>
           <button
             className="btn btn-primary mbutton"
             onClick={this.props.handleClose}
