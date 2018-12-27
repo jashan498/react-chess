@@ -12,8 +12,8 @@ class Game extends Component {
     source: -1,
     kings: [60, 4], // Initial King positions
     underCheck: -1,
-    winner: "White",
-    show: true
+    winner: null,
+    show: false
   };
 
   showModal = () => {
