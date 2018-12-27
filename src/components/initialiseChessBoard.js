@@ -7,6 +7,13 @@ export default function initialiseChessBoard() {
     squares[i] = new Pawn(2);
     squares[i + 40] = new Pawn(1);
   }
+
+  squares[4] = new King(2);
+  squares[60] = new King(1);
+
+  squares[3] = new Queen(2);
+  squares[59] = new Queen(1);
+
   squares[0] = new Rook(2);
   squares[7] = new Rook(2);
   squares[56] = new Rook(1);
@@ -21,12 +28,6 @@ export default function initialiseChessBoard() {
   squares[5] = new Bishop(2);
   squares[58] = new Bishop(1);
   squares[61] = new Bishop(1);
-
-  squares[3] = new Queen(2);
-  squares[4] = new King(2);
-
-  squares[59] = new Queen(1);
-  squares[60] = new King(1);
 
   return squares;
 }

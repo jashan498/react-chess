@@ -4,10 +4,27 @@
 }
 .navbar {
   height: 3vw;
-  margin-bottom: 3vw;
+  margin-bottom: 4vw;
   min-height: 40px;
   /* opacity: 0; */
   /* filter: (opacity=80); */
+}
+
+.navText {
+  color: #ffffff;
+  padding-top: 0.2vw;
+  /* float: right; */
+}
+
+.navButton {
+  color: #ffffff;
+  margin-left: 1vw;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 button {
@@ -21,8 +38,8 @@ button {
   height: 40vw;
   margin: auto;
   padding: 0%;
-  min-height: 350px;
-  min-width: 350px;
+  min-height: 375px;
+  min-width: 375px;
 }
 
 .board-row {
@@ -86,6 +103,7 @@ button {
 }
 
 .mtext {
+  margin-top: 2%;
   margin-left: 2%;
 }
 .mbutton {

@@ -80,7 +80,7 @@ class Game extends Component {
           chessBoard[i] = chessBoard[source];
           chessBoard[source] = null;
           // See if new config checks the opponent's king
-          console.log("#####player ", undercheck);
+          //   console.log("#####player ", undercheck);
           // const opp = sourSquare.player === 1 ? 2 : 1;
           if (this.checkKing(chessBoard, this.state.player, kings[opp - 1]))
             undercheck = opp;
@@ -93,7 +93,7 @@ class Game extends Component {
           // see if player piece is under check due to its own piece
           if (this.checkKing(chessBoard, opp, kings[this.state.player - 1]))
             undercheck = this.state.player;
-          console.log("player ", undercheck);
+          //   console.log("player ", undercheck);
           // console.log(sourSquare.getSrcToDestPath(source, i));
           // console.log(this.checkKing(pathArray, this.state.player));
           source = -1;
