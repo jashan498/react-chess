@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "./navbar.jsx";
 import Board from "./board.jsx";
+import Modal from "./modal.jsx";
 import initialiseChessBoard from "./initialiseChessBoard.js";
 import { Pawn, King } from "./pieces.js";
 
@@ -10,11 +11,39 @@ class Game extends Component {
     player: 1,
     source: -1,
     kings: [60, 4], // Initial King positions
-    underCheck: -1
+    underCheck: -1,
+    winner: null,
+    show: false
+  };
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    const { chessBoard, player, source, kings, underCheck, winner, show } = {
+      chessBoard: initialiseChessBoard(),
+      player: 1,
+      source: -1,
+      kings: [60, 4], // Initial King positions
+      underCheck: -1,
+      winner: null,
+      show: false
+    };
+    this.setState({
+      chessBoard,
+      player,
+      source,
+      kings,
+      underCheck,
+      winner,
+      show
+    });
   };
 
   handleClick = i => {
     // If its the first click
+    if (this.state.winner) return;
     if (this.state.source === -1) {
       const square = this.state.chessBoard[i];
       // see if there is a piece on that square
@@ -103,10 +132,29 @@ class Game extends Component {
     }
     return ans;
   };
+
+  componentDidUpdate() {
+    const kings = this.state.chessBoard.filter(c => c instanceof King);
+    // console.log("move made", kings[0].player, kings[1].player);
+    if (!this.state.winner && kings.length === 1) {
+      this.setState({
+        show: true,
+        winner: 1 === kings[0].player ? "White" : "Black"
+      });
+    }
+  }
   render() {
     return (
       <div>
         <Navbar />
+        <Modal
+          show={this.state.show}
+          handleClose={this.hideModal}
+          winner={this.state.winner}
+        />
+        {/* <button type="button" onClick={this.showModal}>
+          open
+        </button> */}
         <Board
           chessBoard={this.state.chessBoard}
           source={this.state.source}
