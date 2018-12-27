@@ -3,8 +3,11 @@
   border-color: #080808;
 }
 .navbar {
-  height: 5vw;
+  height: 3vw;
   margin-bottom: 3vw;
+  min-height: 40px;
+  opacity: 0.9;
+  /* filter: (opacity=80); */
 }
 
 button {
@@ -18,6 +21,8 @@ button {
   height: 40vw;
   margin: auto;
   padding: 0%;
+  min-height: 350px;
+  min-width: 350px;
 }
 
 .board-row {
