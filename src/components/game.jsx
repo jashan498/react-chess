@@ -79,23 +79,22 @@ class Game extends Component {
           const opp = sourSquare.player === 1 ? 2 : 1;
           chessBoard[i] = chessBoard[source];
           chessBoard[source] = null;
+
           // See if new config checks the opponent's king
-          //   console.log("#####player ", undercheck);
-          // const opp = sourSquare.player === 1 ? 2 : 1;
           if (this.checkKing(chessBoard, this.state.player, kings[opp - 1]))
             undercheck = opp;
           else undercheck = -1;
+
           // If the player was under check and this move removes that check.
           if (undercheck === this.state.player) {
             if (!this.checkKing(chessBoard, opp, kings[this.state.player - 1]))
               undercheck = -1;
           }
+
           // see if player piece is under check due to its own piece
           if (this.checkKing(chessBoard, opp, kings[this.state.player - 1]))
             undercheck = this.state.player;
-          //   console.log("player ", undercheck);
-          // console.log(sourSquare.getSrcToDestPath(source, i));
-          // console.log(this.checkKing(pathArray, this.state.player));
+
           source = -1;
           const player = this.state.player === 1 ? 2 : 1;
           this.setState({
@@ -135,7 +134,6 @@ class Game extends Component {
 
   componentDidUpdate() {
     const kings = this.state.chessBoard.filter(c => c instanceof King);
-    // console.log("move made", kings[0].player, kings[1].player);
     if (!this.state.winner && kings.length === 1) {
       this.setState({
         show: true,
@@ -152,9 +150,6 @@ class Game extends Component {
           handleClose={this.hideModal}
           winner={this.state.winner}
         />
-        {/* <button type="button" onClick={this.showModal}>
-          open
-        </button> */}
         <Board
           chessBoard={this.state.chessBoard}
           source={this.state.source}
