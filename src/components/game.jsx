@@ -20,6 +20,10 @@ class Game extends Component {
     this.setState({ show: true });
   };
 
+  handleCross = () => {
+    this.setState({ show: false });
+  };
+
   hideModal = () => {
     const { chessBoard, player, source, kings, underCheck, winner, show } = {
       chessBoard: initialiseChessBoard(),
@@ -148,6 +152,7 @@ class Game extends Component {
         <Modal
           show={this.state.show}
           handleClose={this.hideModal}
+          handleCross={this.handleCross}
           winner={this.state.winner}
         />
         <Board
