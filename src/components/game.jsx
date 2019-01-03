@@ -3,7 +3,7 @@ import Navbar from "./navbar.jsx";
 import Board from "./board.jsx";
 import Modal from "./modal.jsx";
 import initialiseChessBoard from "./initialiseChessBoard.js";
-import { Pawn, King } from "./pieces.js";
+import { Pawn, King, Queen } from "./pieces.js";
 
 class Game extends Component {
   state = {
@@ -64,9 +64,14 @@ class Game extends Component {
       const sourSquare = chessBoard[source];
       const destSquare = chessBoard[i];
       let isMovePossible = sourSquare.isMovePossible(source, i);
+      let canTrans = false;
       if (sourSquare instanceof Pawn) {
         const isDestOcc = destSquare;
         isMovePossible = sourSquare.isMovePossible(source, i, isDestOcc);
+
+        // Also see if Pawn has reached opponent's side
+        if (sourSquare.player === 1 && i >= 0 && i <= 7) canTrans = true;
+        else if (sourSquare.player === 2 && i >= 56 && i <= 63) canTrans = true;
       }
       if (isMovePossible) {
         const pathArray = sourSquare.getPath(source, i);
@@ -83,6 +88,9 @@ class Game extends Component {
           const opp = sourSquare.player === 1 ? 2 : 1;
           chessBoard[i] = chessBoard[source];
           chessBoard[source] = null;
+
+          // Transform the Pawn into Queen if it reaches opponent's side
+          if (canTrans) chessBoard[i] = new Queen(sourSquare.player);
 
           // See if new config checks the opponent's king
           if (this.checkKing(chessBoard, this.state.player, kings[opp - 1]))
@@ -125,11 +133,18 @@ class Game extends Component {
         chessBoard[i].player === sourSquare &&
         chessBoard[i].isMovePossible(i, oppKing)
       ) {
-        const path = chessBoard[i].getPath(i, oppKing);
-        if (path.every(s => chessBoard[s] === null)) {
-          // console.log("@@@@@@ ", chessBoard[i]);
-          ans = true;
-          break;
+        if (
+          chessBoard[i] instanceof Pawn &&
+          (oppKing === i + 8 || oppKing === i - 8)
+        ) {
+          continue;
+        } else {
+          const path = chessBoard[i].getPath(i, oppKing);
+          if (path.every(s => chessBoard[s] === null)) {
+            // console.log("@@@@@@ ", chessBoard[i]);
+            ans = true;
+            break;
+          }
         }
       }
     }
