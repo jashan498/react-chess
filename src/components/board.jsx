@@ -6,6 +6,7 @@ class Board extends Component {
   renderSquare = (i, squareShade) => {
     return (
       <Square
+        key={i}
         id={i}
         shade={squareShade}
         high={i === this.props.source ? 1 : 0}
@@ -31,7 +32,11 @@ class Board extends Component {
         // both i and j has to be even fro square to be white, hence XOR.
         sqaureRows.push(this.renderSquare(i * 8 + j, squareShade));
       }
-      board.push(<div className="board-row">{sqaureRows}</div>);
+      board.push(
+        <div key={i} className="board-row">
+          {sqaureRows}
+        </div>
+      );
     }
     return board;
   };
