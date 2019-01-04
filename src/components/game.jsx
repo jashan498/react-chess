@@ -131,13 +131,18 @@ class Game extends Component {
       if (
         chessBoard[i] !== null &&
         chessBoard[i].player === sourSquare &&
-        chessBoard[i].isMovePossible(i, oppKing)
+        (chessBoard[i].isMovePossible(i, oppKing) ||
+          chessBoard[i] instanceof Pawn)
       ) {
-        if (
-          chessBoard[i] instanceof Pawn &&
-          (oppKing === i + 8 || oppKing === i - 8)
-        ) {
-          continue;
+        if (chessBoard[i] instanceof Pawn) {
+          if (
+            oppKing === i + 9 ||
+            oppKing === i + 7 ||
+            oppKing === i - 9 ||
+            oppKing === i - 7
+          ) {
+            ans = chessBoard[i].isMovePossible(i, oppKing, chessBoard[oppKing]);
+          }
         } else {
           const path = chessBoard[i].getPath(i, oppKing);
           if (path.every(s => chessBoard[s] === null)) {
