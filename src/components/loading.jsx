@@ -24,7 +24,7 @@ class LoadingScreen extends Component {
               </div>
             </div>
           </div>
-          <div className="loader-text">waiting for other player to join</div>
+          <div className="loader-text">Waiting for other Player</div>
         </div>
       </React.Fragment>
     );
