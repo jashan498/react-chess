@@ -38,7 +38,15 @@ class Board extends Component {
         </div>
       );
     }
-    return board;
+    if (this.props.player === 2) {
+      let black = [];
+      for (let i = 7; i >= 0; i--) {
+        black.push(board[i]);
+      }
+      return black;
+    } else {
+      return board;
+    }
   };
   render() {
     return <div className="board">{this.buildBoard()}</div>;

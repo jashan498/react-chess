@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-inverse navbar-fixed-top">
+    <nav className="navbar navbar-inverse navbar-fixed-top navbarMain">
       <div className="container-fluid">
         <div className="navbar-header">
           <a href=".">

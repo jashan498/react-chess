@@ -2,11 +2,16 @@
   "name": "react-chess",
   "version": "0.1.0",
   "homepage": "http://jashan498.github.io/react-chess",
+  "proxy": "https://salty-refuge-59199.herokuapp.com",
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "react-toastify": "^4.5.2",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

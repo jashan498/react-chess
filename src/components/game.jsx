@@ -4,16 +4,105 @@ import Board from "./board.jsx";
 import Modal from "./modal.jsx";
 import initialiseChessBoard from "./initialiseChessBoard.js";
 import { Pawn, King, Queen } from "./pieces.js";
+import StartPage from "./startPage";
+import LoadingScreen from "./loading";
+import { ToastContainer, toast } from "react-toastify";
+
+import io from "socket.io-client";
+let socket = io(`https://salty-refuge-59199.herokuapp.com`);
 
 class Game extends Component {
   state = {
     chessBoard: initialiseChessBoard(),
-    player: 1,
+    player: null,
     source: -1,
     kings: [60, 4], // Initial King positions
     underCheck: -1,
+    turn: 1,
     winner: null,
-    show: false
+    show: false,
+    joinedRoom: false,
+    showLoading: false
+  };
+
+  ///////////// SOCKET WORK //////////////
+
+  componentWillMount() {
+    socket.on("roomJoined", data => {
+      this.setState({ player: data });
+    });
+
+    socket.on("startLoading", () => {
+      this.setState({ showLoading: true });
+    });
+
+    socket.on("stopLoading", () => {
+      this.setState({ showLoading: false });
+    });
+
+    socket.on("stateChanged", data => {
+      this.handleEmitClick(data);
+    });
+
+    socket.on("loser", loser => {
+      if (!this.state.winner)
+        this.setState({ winner: loser === 1 ? "Black" : "White", show: true });
+    });
+
+    socket.on("roomFull", data => {
+      this.setState({ joinedRoom: false });
+      toast(data);
+    });
+
+    socket.on("rematch", () => {
+      const {
+        chessBoard,
+        player,
+        source,
+        kings,
+        underCheck,
+        turn,
+        winner,
+        show
+      } = {
+        chessBoard: initialiseChessBoard(),
+        player: this.state.player,
+        source: -1,
+        kings: [60, 4], // Initial King positions
+        underCheck: -1,
+        turn: 1,
+        winner: null,
+        show: false
+      };
+      this.setState({
+        chessBoard,
+        player,
+        source,
+        kings,
+        underCheck,
+        turn,
+        winner,
+        show
+      });
+    });
+
+    socket.on("oppDisconnected", () => {
+      // console.log("do you know");
+      toast("Other player already left the game");
+      this.setState({ joinedRoom: false });
+    });
+  }
+
+  ///////////////////////////////////////////////
+
+  enterGame = userName => {
+    if (userName.length === 0) {
+      toast.error("Name should have atleast one character");
+    } else {
+      socket.emit("joinRoom", userName.toLowerCase());
+      this.setState({ joinedRoom: true });
+      console.log(userName);
+    }
   };
 
   showModal = () => {
@@ -24,13 +113,23 @@ class Game extends Component {
     this.setState({ show: false });
   };
 
-  hideModal = () => {
-    const { chessBoard, player, source, kings, underCheck, winner, show } = {
+  rematch = () => {
+    const {
+      chessBoard,
+      player,
+      source,
+      kings,
+      underCheck,
+      turn,
+      winner,
+      show
+    } = {
       chessBoard: initialiseChessBoard(),
-      player: 1,
+      player: this.state.player,
       source: -1,
       kings: [60, 4], // Initial King positions
       underCheck: -1,
+      turn: 1,
       winner: null,
       show: false
     };
@@ -40,12 +139,25 @@ class Game extends Component {
       source,
       kings,
       underCheck,
+      turn,
       winner,
       show
     });
+    socket.emit("rematch");
+  };
+
+  handleEmitClick = data => {
+    const { source, dest, underCheck, turn, kings } = data;
+    console.log(turn);
+    let chessBoard = this.state.chessBoard;
+    chessBoard[dest] = chessBoard[source];
+    chessBoard[source] = null;
+    this.setState({ chessBoard, underCheck, turn, kings });
   };
 
   handleClick = i => {
+    if (this.state.player !== this.state.turn) return;
+
     // If its the first click
     if (this.state.winner) return;
     if (this.state.source === -1) {
@@ -63,6 +175,7 @@ class Game extends Component {
       let source = this.state.source;
       const sourSquare = chessBoard[source];
       const destSquare = chessBoard[i];
+      // console.log("yoolloo", source, chessBoard[source]);
       let isMovePossible = sourSquare.isMovePossible(source, i);
       let canTrans = false;
       if (sourSquare instanceof Pawn) {
@@ -107,20 +220,36 @@ class Game extends Component {
           if (this.checkKing(chessBoard, opp, kings[this.state.player - 1]))
             undercheck = this.state.player;
 
+          const emitSource = source;
+          const under = undercheck;
           source = -1;
-          const player = this.state.player === 1 ? 2 : 1;
-          this.setState({
-            chessBoard: chessBoard,
-            player: player,
-            source: source,
-            kings: kings,
-            underCheck: undercheck
-          });
+          this.setState(
+            {
+              chessBoard: chessBoard,
+              source: source,
+              kings: kings,
+              turn: opp,
+              underCheck: undercheck
+            },
+            () => {
+              socket.emit("stateChanged", {
+                source: emitSource,
+                dest: i,
+                underCheck: under,
+                turn: opp,
+                kings: kings
+              });
+            }
+          );
         } else {
-          this.setState({ source: -1 });
+          this.setState({ source: -1 }, () => {
+            socket.emit("stateChanged", i);
+          });
         }
       } else {
-        this.setState({ source: -1 });
+        this.setState({ source: -1 }, () => {
+          socket.emit("stateChanged", i);
+        });
       }
     }
   };
@@ -165,21 +294,76 @@ class Game extends Component {
       });
     }
   }
+
+  renderTurn = () => {
+    if (this.state.turn === 1) {
+      return (
+        <React.Fragment>
+          <span className="white-dot turn" />
+          &nbsp;
+          <span className="black-dot" />
+        </React.Fragment>
+      );
+    }
+
+    return (
+      <React.Fragment>
+        <span className="white-dot" />
+        &nbsp;
+        <span className="black-dot turn" />
+      </React.Fragment>
+    );
+  };
+
   render() {
+    if (!this.state.joinedRoom) {
+      return (
+        <React.Fragment>
+          <Navbar />
+          <ToastContainer />
+          <StartPage onclick={this.enterGame} />
+        </React.Fragment>
+      );
+    }
+
+    if (this.state.showLoading) {
+      return (
+        <React.Fragment>
+          <Navbar />
+          <LoadingScreen show={this.state.showLoading} />
+        </React.Fragment>
+      );
+    }
+
     return (
       <div>
         <Navbar />
         <Modal
           show={this.state.show}
-          handleClose={this.hideModal}
+          handleClose={this.rematch}
           handleCross={this.handleCross}
           winner={this.state.winner}
         />
+
+        <nav className="navbar navbarUnder">
+          <span className="scoreTurn">
+            <h3>Turn: </h3>
+          </span>
+          <span className="turnBoard">{this.renderTurn()}</span>
+          <span>
+            <span className="badge badge-pill badge-outline lb-lg">0</span>
+            <span> - </span>
+            <span className="badge badge-pill badge-outline-dark  lb-lg">
+              0
+            </span>
+          </span>
+        </nav>
         <Board
           chessBoard={this.state.chessBoard}
           source={this.state.source}
           underCheck={this.state.underCheck}
           handleClick={this.handleClick}
+          player={this.state.player}
         />
       </div>
     );
