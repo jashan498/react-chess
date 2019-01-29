@@ -23,7 +23,8 @@ class Game extends Component {
     winner: null,
     show: false,
     joinedRoom: false,
-    showLoading: false
+    showLoading: false,
+    scoreBoard: [0, 0]
   };
 
   ///////////// SOCKET WORK //////////////
@@ -42,8 +43,16 @@ class Game extends Component {
     });
 
     socket.on("loser", loser => {
-      if (!this.state.winner)
-        this.setState({ winner: loser === 1 ? "Black" : "White", show: true });
+      if (!this.state.winner) {
+        let scoreBoard = this.state.scoreBoard;
+        if (loser === 1) {
+          scoreBoard[1] = scoreBoard[1] + 1;
+        } else {
+          scoreBoard[0] = scoreBoard[0] + 1;
+        }
+        const winner = loser === 1 ? "Black" : "White";
+        this.setState({ winner, show: true, scoreBoard });
+      }
     });
 
     socket.on("roomFull", data => {
@@ -86,7 +95,7 @@ class Game extends Component {
     socket.on("oppDisconnected", () => {
       // console.log("do you know");
       toast("Other player already left the game");
-      this.setState({ joinedRoom: false });
+      this.setState({ joinedRoom: false, scoreBoard: [0, 0] });
     });
   }
 
@@ -285,9 +294,17 @@ class Game extends Component {
   componentDidUpdate() {
     const kings = this.state.chessBoard.filter(c => c instanceof King);
     if (!this.state.winner && kings.length === 1) {
+      let scoreBoard = this.state.scoreBoard;
+      const winner = 1 === kings[0].player ? "White" : "Black";
+      if (winner === "White") {
+        scoreBoard[0] = scoreBoard[0] + 1;
+      } else {
+        scoreBoard[1] = scoreBoard[1] + 1;
+      }
       this.setState({
         show: true,
-        winner: 1 === kings[0].player ? "White" : "Black"
+        winner,
+        scoreBoard
       });
     }
   }
@@ -348,10 +365,12 @@ class Game extends Component {
           </span>
           <span className="turnBoard">{this.renderTurn()}</span>
           <span>
-            <span className="badge badge-pill badge-outline lb-lg">0</span>
+            <span className="badge badge-pill badge-outline lb-lg">
+              {this.state.scoreBoard[0]}
+            </span>
             <span> - </span>
             <span className="badge badge-pill badge-outline-dark  lb-lg">
-              0
+              {this.state.scoreBoard[1]}
             </span>
           </span>
         </nav>
