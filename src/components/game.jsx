@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import io from "socket.io-client";
 let socket = io(`https://salty-refuge-59199.herokuapp.com`);
+// let socket = io(`http://localhost:8080`);
 
 class Game extends Component {
   state = {
@@ -30,10 +31,6 @@ class Game extends Component {
   componentWillMount() {
     socket.on("roomJoined", data => {
       this.setState({ player: data });
-    });
-
-    socket.on("startLoading", () => {
-      this.setState({ showLoading: true });
     });
 
     socket.on("stopLoading", () => {
@@ -100,7 +97,7 @@ class Game extends Component {
       toast.error("Name should have atleast one character");
     } else {
       socket.emit("joinRoom", userName.toLowerCase());
-      this.setState({ joinedRoom: true });
+      this.setState({ joinedRoom: true, showLoading: true });
       console.log(userName);
     }
   };
