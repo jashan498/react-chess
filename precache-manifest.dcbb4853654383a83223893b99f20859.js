@@ -4,15 +4,15 @@ self.__precacheManifest = [
     "url": "/react-chess/static/js/runtime~main.65c39bb5.js"
   },
   {
-    "revision": "2afadf1f7f4c1a3d0966",
-    "url": "/react-chess/static/js/main.2afadf1f.chunk.js"
+    "revision": "493e31186ee62fc3c84b",
+    "url": "/react-chess/static/js/main.493e3118.chunk.js"
   },
   {
     "revision": "d1cb970c6cbd79f1360c",
     "url": "/react-chess/static/js/1.d1cb970c.chunk.js"
   },
   {
-    "revision": "2afadf1f7f4c1a3d0966",
+    "revision": "493e31186ee62fc3c84b",
     "url": "/react-chess/static/css/main.e196aea7.chunk.css"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/react-chess/static/css/1.2da2efc2.chunk.css"
   },
   {
-    "revision": "155604a4f0fb44c4e0d18393b1b961d6",
+    "revision": "567c5feadf55a07d05fafa121b30ac26",
     "url": "/react-chess/index.html"
   }
 ];
