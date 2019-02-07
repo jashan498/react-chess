@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 
 class LoadingScreen extends Component {
+  lowerText = () => {
+    return "Other Player can play with you by joing the room: ";
+  };
   render() {
     if (!this.props.show) return null;
     return (
@@ -13,10 +16,10 @@ class LoadingScreen extends Component {
             <div className="box" />
             <div className="wrap-text">
               <div className="text">
-                <span>L</span>
-                <span>O</span>
+                <span>W</span>
                 <span>A</span>
-                <span>D</span>
+                <span>I</span>
+                <span>T</span>
                 <span>I</span>
                 <span>N</span>
                 <span>G</span>
@@ -25,6 +28,14 @@ class LoadingScreen extends Component {
             </div>
           </div>
           <div className="loader-text">Waiting for other Player</div>
+          <div className="loader-text">
+            <span>
+              {this.lowerText()}{" "}
+              <p style={{ fontWeight: "bold", display: "inline" }}>
+                {this.props.roomName}
+              </p>
+            </span>
+          </div>
         </div>
       </React.Fragment>
     );

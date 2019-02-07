@@ -106,7 +106,7 @@ class Game extends Component {
       toast.error("Name should have atleast one character");
     } else {
       socket.emit("joinRoom", userName.toLowerCase());
-      this.setState({ joinedRoom: true, showLoading: true });
+      this.setState({ joinedRoom: userName.toLowerCase(), showLoading: true });
       console.log(userName);
     }
   };
@@ -344,7 +344,10 @@ class Game extends Component {
       return (
         <React.Fragment>
           <Navbar />
-          <LoadingScreen show={this.state.showLoading} />
+          <LoadingScreen
+            show={this.state.showLoading}
+            roomName={this.state.joinedRoom}
+          />
         </React.Fragment>
       );
     }
