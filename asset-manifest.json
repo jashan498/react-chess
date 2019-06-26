@@ -1,15 +1,15 @@
 {
-  "main.css": "/react-chess/static/css/main.e196aea7.chunk.css",
-  "main.js": "/react-chess/static/js/main.91f1a509.chunk.js",
-  "main.js.map": "/react-chess/static/js/main.91f1a509.chunk.js.map",
-  "static/css/1.2da2efc2.chunk.css": "/react-chess/static/css/1.2da2efc2.chunk.css",
-  "static/js/1.d1cb970c.chunk.js": "/react-chess/static/js/1.d1cb970c.chunk.js",
-  "static/js/1.d1cb970c.chunk.js.map": "/react-chess/static/js/1.d1cb970c.chunk.js.map",
-  "runtime~main.js": "/react-chess/static/js/runtime~main.65c39bb5.js",
-  "runtime~main.js.map": "/react-chess/static/js/runtime~main.65c39bb5.js.map",
-  "static/css/1.2da2efc2.chunk.css.map": "/react-chess/static/css/1.2da2efc2.chunk.css.map",
-  "static/css/main.e196aea7.chunk.css.map": "/react-chess/static/css/main.e196aea7.chunk.css.map",
-  "index.html": "/react-chess/index.html",
-  "precache-manifest.d24582bb18b580254dfe3f380bedce18.js": "/react-chess/precache-manifest.d24582bb18b580254dfe3f380bedce18.js",
-  "service-worker.js": "/react-chess/service-worker.js"
+  "main.css": "/multiplayer-chess/static/css/main.791b268b.chunk.css",
+  "main.js": "/multiplayer-chess/static/js/main.72478afd.chunk.js",
+  "main.js.map": "/multiplayer-chess/static/js/main.72478afd.chunk.js.map",
+  "static/css/1.879b845d.chunk.css": "/multiplayer-chess/static/css/1.879b845d.chunk.css",
+  "static/js/1.f0e1e968.chunk.js": "/multiplayer-chess/static/js/1.f0e1e968.chunk.js",
+  "static/js/1.f0e1e968.chunk.js.map": "/multiplayer-chess/static/js/1.f0e1e968.chunk.js.map",
+  "runtime~main.js": "/multiplayer-chess/static/js/runtime~main.9bb5e893.js",
+  "runtime~main.js.map": "/multiplayer-chess/static/js/runtime~main.9bb5e893.js.map",
+  "static/css/1.879b845d.chunk.css.map": "/multiplayer-chess/static/css/1.879b845d.chunk.css.map",
+  "static/css/main.791b268b.chunk.css.map": "/multiplayer-chess/static/css/main.791b268b.chunk.css.map",
+  "index.html": "/multiplayer-chess/index.html",
+  "precache-manifest.0c6fbfa085fac34e2fc28a47f0421d29.js": "/multiplayer-chess/precache-manifest.0c6fbfa085fac34e2fc28a47f0421d29.js",
+  "service-worker.js": "/multiplayer-chess/service-worker.js"
 }
