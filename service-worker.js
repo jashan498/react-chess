@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/multiplayer-chess/precache-manifest.0c6fbfa085fac34e2fc28a47f0421d29.js"
+  "/multiplayer-chess/precache-manifest.f429eb3815d347c771ef56732136c916.js"
 );
 
 workbox.clientsClaim();
