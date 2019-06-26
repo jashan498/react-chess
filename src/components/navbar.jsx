@@ -6,10 +6,10 @@ const Navbar = () => {
       <div className="container-fluid">
         <div className="navbar-header">
           <a href=".">
-            <h2 style={{ color: "white" }}>React Chess</h2>
+            <h2 style={{ color: "white" }}>Multiplayer Chess</h2>
           </a>
         </div>
-        <a href="https://github.com/jashan498/react-chess" className="mr-auto">
+        {/* <a href="https://github.com/jashan498/react-chess" className="mr-auto">
           {" "}
           <button
             className="btn btn-sm btn-outline-secondary pull-left mr-auto navButton"
@@ -17,10 +17,10 @@ const Navbar = () => {
           >
             Code
           </button>
-        </a>
-        <a href="https://github.com/jashan498">
+        </a> */}
+        {/* <a href="https://github.com/jashan498">
           <p className="navText nav ml-auto">jashan498</p>
-        </a>
+        </a> */}
       </div>
     </nav>
   );

@@ -1,7 +1,7 @@
 {
-  "name": "react-chess",
+  "name": "multiplayer-chess",
   "version": "0.1.0",
-  "homepage": "http://jashan498.github.io/react-chess",
+  "homepage": "http://jashan498.github.io/multiplayer-chess",
   "proxy": "https://salty-refuge-59199.herokuapp.com",
   "dependencies": {
     "axios": "^0.18.0",

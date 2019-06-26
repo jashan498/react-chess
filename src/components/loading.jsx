@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class LoadingScreen extends Component {
   lowerText = () => {
-    return "Other Player can play with you by joing the room: ";
+    return "Code to join this Game: ";
   };
   render() {
     if (!this.props.show) return null;

@@ -5,7 +5,7 @@
 .navbarMain {
   height: 3vw;
   margin-bottom: 0.5vw;
-  min-height: 40px;
+  min-height: 50px;
   z-index: 500;
   /* opacity: 0; */
   /* filter: (opacity=80); */
@@ -214,8 +214,8 @@ button {
 /*  START PAGE  */
 
 .form {
-  width: 400px;
-  height: 230px;
+  width: 440px;
+  height: 270px;
   background: #eceaea;
   border-radius: 8px;
   box-shadow: 0 0 40px -10px #000;
