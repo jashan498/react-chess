@@ -22,9 +22,7 @@ class StartPage extends Component {
               onChange={e => this.setState({ userName: e.target.value })}
             />
           </p>
-          <strong>
-            <p>Share this code to start playing</p>
-          </strong>
+          <p className="sline">Share this code to start playing</p>
           <button
             type="submit"
             className="startButton"
